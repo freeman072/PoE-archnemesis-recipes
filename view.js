@@ -534,6 +534,7 @@
 		container.type = 'button';
 		container.setAttribute('type', MODS[mod].type);
 		container.setAttribute('name', mod);
+		container.setAttribute('rewards', MODS[mod].rewards);
 		container.appendChild(icon);
 		container.appendChild(tag);
 		container.setAttribute('owned', ownedMods[mod] ? 'true': 'false');
@@ -577,9 +578,10 @@
 
 		filterSearch.addEventListener('input', () => {
 			const searchQuery = new RegExp(filterSearch.value.toLowerCase().split('').map(escapeRegExp).join('.*'), 'i');
-
+			console.log(searchQuery);
 			modList.querySelectorAll('.mod').forEach((el) => {
-				el.style.display = searchQuery.test(el.getAttribute('name')) ? '' : 'none';
+				el.style.display = searchQuery.test(el.getAttribute('name')) ? '' : 
+					searchQuery.test(el.getAttribute('rewards')) ? '' : 'none';
 			});
 		});
 
